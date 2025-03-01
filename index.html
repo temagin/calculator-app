@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калкулатор за ресурси</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Калкулатор за ресурси</h1>
+        <div class="input-group">
+            <label for="goren">Горен размер:</label>
+            <input type="number" id="goren" placeholder="Въведи горен размер">
+        </div>
+        <div class="input-group">
+            <label for="dolen">Долен размер:</label>
+            <input type="number" id="dolen" placeholder="Въведи долен размер">
+        </div>
+        <button onclick="calculate()">Изчисли</button>
+
+        <div class="result">
+            <p id="result">Ресурс: </p>
+            <p id="status"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
