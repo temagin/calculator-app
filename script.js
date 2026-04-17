@@ -1,24 +1,44 @@
+const MIN_RAZLIKA = 3;
+const MAX_RAZLIKA = 4.2;
+
 function calculate() {
-    // Вземане на стойностите от полетата
-    const goren = parseFloat(document.getElementById('goren').value);
-    const dolen = parseFloat(document.getElementById('dolen').value);
+    const gorenRaw = document.getElementById('goren').value;
+    const dolenRaw = document.getElementById('dolen').value;
+    const resultEl = document.getElementById('result');
+    const statusEl = document.getElementById('status');
 
-    // Изчисляване на разликата (винаги положителна)
+    const goren = parseFloat(gorenRaw);
+    const dolen = parseFloat(dolenRaw);
+
+    if (gorenRaw === '' || dolenRaw === '' || isNaN(goren) || isNaN(dolen)) {
+        resultEl.textContent = 'Ресурс: —';
+        statusEl.textContent = 'Моля, въведете валидни числа.';
+        statusEl.className = 'невалидно';
+        return;
+    }
+
     const razlika = Math.abs(goren - dolen);
+    const raw = ((razlika - MIN_RAZLIKA) / (MAX_RAZLIKA - MIN_RAZLIKA)) * 100;
+    const resource = Math.max(0, Math.min(100, raw));
 
-    // Изчисляване на ресурса
-    const resource = ((razlika - 3) / (4.2 - 3)) * 100;
+    resultEl.textContent = `Ресурс: ${resource.toFixed(2)}%`;
 
-    // Показване на резултата
-    document.getElementById('result').innerText = `Ресурс: ${resource.toFixed(2)}%`;
-
-    // Проверка за статус
-    const statusElement = document.getElementById('status');
     if (resource >= 50) {
-        statusElement.innerText = "Годно";
-        statusElement.className = "годно";
+        statusEl.textContent = 'Годно';
+        statusEl.className = 'годно';
     } else {
-        statusElement.innerText = "Негодно";
-        statusElement.className = "негодно";
+        statusEl.textContent = 'Негодно';
+        statusEl.className = 'негодно';
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    ['goren', 'dolen'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('keydown', e => {
+                if (e.key === 'Enter') calculate();
+            });
+        }
+    });
+});
