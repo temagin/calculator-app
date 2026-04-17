@@ -74,3 +74,8 @@ button:hover {
 .негодно {
     background-color: red;
 }
+
+.невалидно {
+    background-color: #f5a623;
+    color: #fff;
+}
